@@ -18,22 +18,23 @@ class App extends Component{
     let solution;
     let array = string.split('');
     const vowels = ['a','e','i','o','u']
-    
+
 
     if(vowels.includes(array[0])){
-      solution = [...array, 'way']
+      solution = array.concat(['w', 'a', 'y'])
     }
     else{
         for(let i = 0; i < array.length; i++){
-          if(vowels.includes(array[i])){
-            solution = array.slice(i).concat(array.slice(0, i))
+          if(vowels.includes(array[i]) && array[i-1] != 'q'){
+            solution = array.slice(i).concat(array.slice(0, i)).concat(['a', 'y'])
+            break
+          } else if(array[i] === 'y' && i != 0){
+            solution = array.slice(i).concat(array.slice(0, i)).concat(['a', 'y'])
+            break
           }
-          // if(array[i] === 'u' && array[i-1] === 'q'){
-          //     array = [...array, ]
-          // }
         }
-        return solution.join('');
     }
+    return solution.join('');
   }
 
   // The "myPigLatinCodeHere" function is where you will put your logic to convert the sentence entered by the user to Pig Latin
@@ -43,16 +44,13 @@ class App extends Component{
     // no need to change this variable
     let userInput = this.state.phrase.split(" ")
     console.log("userInput:", userInput)
-
+    let answerArray = []
     // now that we have an array of words, we can map over the array and access each word
     let translatedWordsArray = userInput.map(currentWord => {
       // ACTION ITEM: use "currentWord" as a starting point for your code
       console.log("currentWord:", currentWord)
+      answerArray.push(this.translateWord(currentWord))
 
-      let vowelsArray = currentWord.split("").filter(vowel => {
-        return vowel === "a" || vowel === "e" || vowel === "i" || vowel === "o" || vowel === "u"
-      })
-      console.log("vowelsArray:", vowelsArray)
 
       // your code here!
 
@@ -63,15 +61,15 @@ class App extends Component{
       return currentWord
     })
 
+    this.setState({
+      phraseTranslated: answerArray.join(' ')
+    })
 
     // joining the array back to a string of translated words
     // no need to change this variable
-    let translatedWords = translatedWordsArray.join(" ")
-    console.log("translatedWords:", translatedWords)
 
     // the setState method will take your information from "translatedWords" and update the state object that is displayed to the user
     // no need to change this method
-    this.setState({phraseTranslated: translatedWords})
   }
 
   restartGame = () => {
