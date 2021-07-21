@@ -43,15 +43,16 @@ class App extends Component{
   // The "myPigLatinCodeHere" function is where you will put your logic to convert the sentence entered by the user to Pig Latin
 
   myPigLatinCodeHere = () => {
+    let punctuations = [".", ",", ":", "!", "?"]
     // the variable "userInput" will contain the text input from the user modified into an array of words
     // no need to change this variable
     let userInput = this.state.phrase.split(/(\W+)/)
-    console.log("userInput:", userInput)
+    //console.log("userInput:", userInput)
     let answerArray = []
     // now that we have an array of words, we can map over the array and access each word
     let translatedWordsArray = userInput.map(currentWord => {
       // ACTION ITEM: use "currentWord" as a starting point for your code
-      console.log("currentWord:", currentWord)
+      //console.log("currentWord:", currentWord)
       answerArray.push(this.translateWord(currentWord))
 
 
@@ -63,6 +64,15 @@ class App extends Component{
       // ACTION ITEM: change the value of currentWord to the name of whatever variable you made containing your Pig Latin'd word
       return currentWord
     })
+    
+
+    for(let i = 0; i < answerArray.length; i++){
+      if(!!answerArray[i].match(/(\W+)/)){
+        answerArray[i-1] = answerArray[i-1].concat(answerArray[i])
+        answerArray.splice(i, 1)
+      }
+    }
+    console.log(answerArray)
 
     this.setState({
       phraseTranslated: answerArray.join(' ')
