@@ -15,20 +15,23 @@ class App extends Component{
     }
   }
   translateWord = (string) => {
-    let solution;
+    let solution = [];
     let array = string.split('');
     const vowels = ['a','e','i','o','u']
+    let punctuations = [".", ",", ":", "!", "?"]
 
-
+    if(punctuations.includes(array[0])){
+      solution = [string]
+    }
     if(vowels.includes(array[0])){
       solution = array.concat(['w', 'a', 'y'])
     }
     else{
         for(let i = 0; i < array.length; i++){
-          if(vowels.includes(array[i]) && array[i-1] != 'q'){
+          if(vowels.includes(array[i].toLowerCase()) && array[i-1].toLowerCase() != 'q'){
             solution = array.slice(i).concat(array.slice(0, i)).concat(['a', 'y'])
             break
-          } else if(array[i] === 'y' && i != 0){
+          } else if(array[i].toLowerCase() === 'y' && i != 0){
             solution = array.slice(i).concat(array.slice(0, i)).concat(['a', 'y'])
             break
           }
@@ -42,7 +45,7 @@ class App extends Component{
   myPigLatinCodeHere = () => {
     // the variable "userInput" will contain the text input from the user modified into an array of words
     // no need to change this variable
-    let userInput = this.state.phrase.split(" ")
+    let userInput = this.state.phrase.split(/(\W+)/)
     console.log("userInput:", userInput)
     let answerArray = []
     // now that we have an array of words, we can map over the array and access each word
