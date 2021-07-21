@@ -14,6 +14,27 @@ class App extends Component{
       phraseTranslated: "This is where your translated sentence will appear."
     }
   }
+  translateWord = (string) => {
+    let solution;
+    let array = string.split('');
+    const vowels = ['a','e','i','o','u']
+    
+
+    if(vowels.includes(array[0])){
+      solution = [...array, 'way']
+    }
+    else{
+        for(let i = 0; i < array.length; i++){
+          if(vowels.includes(array[i])){
+            solution = array.slice(i).concat(array.slice(0, i))
+          }
+          // if(array[i] === 'u' && array[i-1] === 'q'){
+          //     array = [...array, ]
+          // }
+        }
+        return solution.join('');
+    }
+  }
 
   // The "myPigLatinCodeHere" function is where you will put your logic to convert the sentence entered by the user to Pig Latin
 
