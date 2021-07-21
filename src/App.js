@@ -20,7 +20,10 @@ class App extends Component{
     const vowels = ['a','e','i','o','u']
     let punctuations = [".", ",", ":", "!", "?"]
 
-    if(punctuations.includes(array[0])){
+    if(array.length === 1){
+      solution = array.concat(['w', 'a', 'y'])
+    }
+    if(array[0] && !!array[0].match(/(\W+)/)){
       solution = [string]
     }
     if(vowels.includes(array[0])){
